@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新年快乐 - 跨年祝福</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a2a;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* 背景装饰 */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .snowflake {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 顶部标题区 */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff3366, #ff9933, #ffff33, #33ff33, #3366ff, #cc33ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+        
+        /* 倒计时区 */
+        .countdown-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 10px 30px rgba(255, 51, 102, 0.3);
+            border: 2px solid rgba(255, 204, 0, 0.3);
+        }
+        
+        .countdown-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #ffcc00;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background: linear-gradient(135deg, #ff3366, #ff9933);
+            border-radius: 15px;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        .countdown-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+        }
+        
+        .countdown-label {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        /* 祝福区 */
+        .blessings-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #ffcc00;
+        }
+        
+        .blessings-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .blessing-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+        
+        .blessing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .blessing-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .blessing-author {
+            text-align: right;
+            font-style: italic;
+            color: #ffcc00;
+        }
+        
+        /* 发送祝福区 */
+        .send-blessing {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            border: 2px solid rgba(255, 204, 0, 0.3);
+        }
+        
+        .send-blessing-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: #ffcc00;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 204, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 200px;
+            margin: 0 auto;
+            padding: 15px;
+            background: linear-gradient(90deg, #ff3366, #ff9933);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.5);
+        }
+        
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #ffcc00;
+            font-size: 1.2rem;
+            border-top: 1px solid rgba(255, 204, 0, 0.3);
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            color: #ffcc00;
+            font-size: 1.8rem;
+            margin: 0 15px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            color: #ff3366;
+        }
+        
+        /* 烟花效果 */
+        .firework {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .countdown-item {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .countdown-number {
+                font-size: 2.8rem;
+            }
+            
+            .blessings-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .countdown-section, .send-blessing {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .countdown {
+                gap: 15px;
+            }
+            
+            .countdown-item {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .countdown-label {
+                font-size: 1rem;
+            }
+        }
+        
+        /* 新年祝福动画 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景装饰 -->
+    <div class="background" id="background"></div>
+    
+    <!-- 烟花容器 -->
+    <div id="fireworks-container"></div>
+    
+    <div class="container">
+        <!-- 顶部标题区 -->
+        <header class="header">
+            <h1 class="title floating">🎉 新年快乐 🎉</h1>
+            <h2 class="subtitle">告别<span id="current-year">2024</span>，迎接<span id="next-year">2025</span></h2>
+            <p class="subtitle">愿新的一年带给你健康、快乐和成功！</p>
+        </header>
+        
+        <!-- 倒计时区 -->
+        <section class="countdown-section">
+            <h2 class="countdown-title">距离新年还有</h2>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">天</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">小时</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">分钟</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">秒</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 祝福展示区 -->
+        <section class="blessings-section">
+            <h2 class="section-title">新年祝福语</h2>
+            <div class="blessings-container" id="blessings-container">
+                <!-- 祝福语将通过JavaScript动态添加 -->
+            </div>
+        </section>
+        
+        <!-- 发送祝福区 -->
+        <section class="send-blessing">
+            <h2 class="send-blessing-title">发送你的新年祝福</h2>
+            <form id="blessing-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="你的名字" required>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="message" placeholder="写下你的新年祝福..." required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">发送祝福</button>
+            </form>
+        </section>
+        
+        <!-- 底部 -->
+        <footer class="footer">
+            <p>© <span id="footer-year">2024</span> 新年快乐 | 设计制作：跨年祝福网站</p>
+            <p>愿新年的钟声为你带来幸福与安康！</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 设置年份
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const nextYear = currentYear + 1;
+        
+        document.getElementById('current-year').textContent = currentYear;
+        document.getElementById('next-year').textContent = nextYear;
+        document.getElementById('footer-year').textContent = currentYear;
+        
+        // 新年时间（下一年的1月1日00:00:00）
+        const newYearTime = new Date(nextYear, 0, 1, 0, 0, 0).getTime();
+        
+        // 倒计时函数
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeLeft = newYearTime - now;
+            
+            // 计算天、时、分、秒
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // 更新显示
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // 如果新年已到，显示庆祝消息
+            if (timeLeft < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector('.countdown-title').textContent = "🎉 新年快乐！ 🎉";
+                document.getElementById('days').textContent = "00";
+                document.getElementById('hours').textContent = "00";
+                document.getElementById('minutes').textContent = "00";
+                document.getElementById('seconds').textContent = "00";
+            }
+        }
+        
+        // 初始化倒计时
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // 祝福语数据
+        const defaultBlessings = [
+            {
+                text: "愿新的一年里，阳光满路，温暖如初；愿你所求皆如愿，所行化坦途，多喜乐，长安宁。",
+                author: "新年祝福"
+            },
+            {
+                text: "辞旧迎新，新年可期。愿你眼有星辰大海，心有繁花似锦，前路浩荡，未来可期。",
+                author: "美好祝愿"
+            },
+            {
+                text: "愿新年胜旧年，愿将来胜过往。烟火向星辰，所愿皆成真，愿新的一年万事顺遂。",
+                author: "诚挚祝福"
+            },
+            {
+                text: "新的一年，愿山河无恙，人间皆安；愿新年，胜旧年，常安长安，有趣有盼，无灾无难。",
+                author: "平安祝愿"
+            },
+            {
+                text: "愿你新的一年，一路惊喜，马声蹄蹄；心中有景，花香满径；有趣有盼，不负心中热爱。",
+                author: "温馨祝福"
+            },
+            {
+                text: "愿新年，存远志，常读书，乐交友，惜四时。山高有行路，水深有渡舟，和气作春妍，新年胜旧年。",
+                author: "智慧祝福"
+            }
+        ];
+        
+        // 初始化祝福语
+        function initializeBlessings() {
+            const container = document.getElementById('blessings-container');
+            
+            // 从本地存储获取祝福语，如果没有则使用默认
+            let blessings = JSON.parse(localStorage.getItem('newYearBlessings')) || defaultBlessings;
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            // 添加祝福卡片
+            blessings.forEach((blessing, index) => {
+                const card = document.createElement('div');
+                card.className = 'blessing-card';
+                card.innerHTML = `
+                    <p class="blessing-text">${blessing.text}</p>
+                    <p class="blessing-author">—— ${blessing.author}</p>
+                `;
+                
+                // 添加随机动画延迟
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // 发送祝福表单处理
+        document.getElementById('blessing-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const message = document.getElementById('message').value.trim();
+            
+            if (!name || !message) {
+                alert('请填写完整的祝福信息！');
+                return;
+            }
+            
+            // 创建新祝福
+            const newBlessing = {
+                text: message,
+                author: name
+            };
+            
+            // 获取现有祝福
+            let blessings = JSON.parse(localStorage.getItem('newYearBlessings')) || defaultBlessings;
+            
+            // 添加新祝福到最前面
+            blessings.unshift(newBlessing);
+            
+            // 限制最多保存20条祝福
+            if (blessings.length > 20) {
+                blessings = blessings.slice(0, 20);
+            }
+            
+            // 保存到本地存储
+            localStorage.setItem('newYearBlessings', JSON.stringify(blessings));
+            
+            // 更新显示
+            initializeBlessings();
+            
+            // 清空表单
+            document.getElementById('blessing-form').reset();
+            
+            // 显示成功消息
+            alert('感谢你的祝福！已成功发送。');
+            
+            // 触发烟花效果
+            createFireworks(3);
+        });
+        
+        // 创建星星背景
+        function createStars() {
+            const background = document.getElementById('background');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // 随机大小
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // 随机位置
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                
+                background.appendChild(star);
+            }
+        }
+        
+        // 创建雪花
+        function createSnowflakes() {
+            const background = document.getElementById('background');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                
+                // 随机大小
+                const size = Math.random() * 5 + 2;
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                
+                // 随机位置
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.top = `${Math.random() * 100}%`;
+                
+                // 随机透明度
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                // 动画
+                snowflake.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
+                snowflake.style.animationDelay = `${Math.random() * 5}s`;
+                
+                // 创建下落动画
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fall {
+                        0% { transform: translateY(-100px) rotate(0deg); }
+                        100% { transform: translateY(100vh) rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                background.appendChild(snowflake);
+            }
+        }
+        
+        // 创建烟花效果
+        function createFireworks(count) {
+            const container = document.getElementById('fireworks-container');
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    
+                    // 随机位置
+                    const x = Math.random() * 80 + 10;
+                    const y = Math.random() * 80 + 10;
+                    
+                    firework.style.left = `${x}%`;
+                    firework.style.top = `${y}%`;
+                    
+                    // 随机颜色
+                    const colors = ['#ff3366', '#ff9933', '#ffff33', '#33ff33', '#3366ff', '#cc33ff'];
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    firework.style.backgroundColor = color;
+                    
+                    // 添加到容器
+                    container.appendChild(firework);
+                    
+                    // 烟花爆炸效果
+                    firework.animate([
+                        { transform: 'scale(1)', opacity: 1, boxShadow: `0 0 5px ${color}` },
+                        { transform: `scale(${Math.random() * 15 + 10})`, opacity: 0, boxShadow: `0 0 30px ${color}` }
+                    ], {
+                        duration: 800,
+                        easing: 'ease-out'
+                    });
+                    
+                    // 移除元素
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 800);
+                }, i * 200);
+            }
+        }
+        
+        // 随机触发烟花效果
+        function randomFireworks() {
+            // 在新年倒计时小于10秒时，增加烟花频率
+            const now = new Date().getTime();
+            const timeLeft = newYearTime - now;
+            const secondsLeft = Math.floor(timeLeft / 1000);
+            
+            let fireworkChance = 0.002; // 默认概率
+            
+            if (secondsLeft <= 10 && secondsLeft > 0) {
+                fireworkChance = 0.1; // 新年临近时增加概率
+            } else if (timeLeft < 0) {
+                fireworkChance = 0.05; // 新年已到，持续庆祝
+            }
+            
+            if (Math.random() < fireworkChance) {
+                createFireworks(Math.floor(Math.random() * 3) + 1);
+            }
+            
+            // 继续随机触发
+            setTimeout(randomFireworks, 1000);
+        }
+        
+        // 初始化页面
+        function initPage() {
+            createStars();
+            createSnowflakes();
+            initializeBlessings();
+            randomFireworks();
+            
+            // 初始烟花效果
+            setTimeout(() => createFireworks(2), 1000);
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
